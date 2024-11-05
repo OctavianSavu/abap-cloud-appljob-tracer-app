@@ -7,7 +7,7 @@
 |**Generation Platform**<br>Visual Studio Code|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>SAP System (ABAP On Premise)|
-|**Service URL**<br>https://my408401.s4hana.cloud.sap//sap/opu/odata4/sap/zos_ui_v4_job_tracer/srvd/sap/zos_job_tracer/0001/|
+|**Service URL**<br>https://1374dadc-372f-46e3-a692-b2bd57ae0ee4.abap-web.us10.hana.ondemand.com//sap/opu/odata4/sap/zos_ui_v4_job_tracer/srvd/sap/zos_job_tracer/0001/|
 |**Module Name**<br>jobtracer|
 |**Application Title**<br>Application job variable trace|
 |**Namespace**<br>octav.demo|

@@ -20,7 +20,7 @@ server:
         ignoreCertError: false
         backend:
           - path: /sap
-            url: https://my408401.s4hana.cloud.sap/
+            url: https://1374dadc-372f-46e3-a692-b2bd57ae0ee4.abap-web.us10.hana.ondemand.com/
     - name: sap-fe-mockserver
       beforeMiddleware: fiori-tools-proxy
       configuration:
