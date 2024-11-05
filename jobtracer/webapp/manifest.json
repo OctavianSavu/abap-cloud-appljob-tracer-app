@@ -1,0 +1,205 @@
+{
+    "_version": "1.64.0",
+    "sap.app": {
+        "id": "octav.demo.jobtracer",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.14.5",
+            "toolsId": "a32513b4-7fa8-4bf1-97aa-430e2aecc5a8"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata4/sap/zos_ui_v4_job_tracer/srvd/sap/zos_job_tracer/0001/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotation"
+                    ],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.124.8",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "octav.demo.jobtracer.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "config": {},
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "JobTracerList",
+                    "target": "JobTracerList"
+                },
+                {
+                    "pattern": "JobTracer({key}):?query:",
+                    "name": "JobTracerObjectPage",
+                    "target": "JobTracerObjectPage"
+                },
+                {
+                    "pattern": "JobTracer({key})/_variables({key2}):?query:",
+                    "name": "JobTracerObjectPageContent",
+                    "target": "JobTracerObjectPageContent"
+                }
+            ],
+            "targets": {
+                "JobTracerList": {
+                    "type": "Component",
+                    "id": "JobTracerList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "JobTracer",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "JobTracer": {
+                                    "detail": {
+                                        "route": "JobTracerObjectPage"
+                                    }
+                                }
+                            },
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "type": "ResponsiveTable"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "JobTracerObjectPage": {
+                    "type": "Component",
+                    "id": "JobTracerObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "JobTracerVariables",
+                            "navigation": {
+                                "_variables": {
+                                    "detail": {
+                                        "route": "JobTracerObjectPageContent"
+                                    }
+                                }
+                            },
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "type": "ResponsiveTable"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "JobTracerObjectPageContent": {
+                    "type": "Component",
+                    "id": "JobTracerObjectPageContent",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "JobTracerContent",
+                            "content": {
+                                "body": {
+                                    "sections": {
+                                        "VarContentViewerSection": {
+                                            "template": "octav.demo.jobtracer.custom.fragment.variableContentView",
+                                            "title": "Content of variable as JSON:",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "VariableName"
+                                            },
+                                            "type": "XMLFragment"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.controllerExtensions": {
+                    "sap.fe.templates.ObjectPage.ObjectPageController": {
+                        "controllerName": "octav.demo.jobtracer.ext.controller.JobTracerObjectPage"
+                    }
+                }
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}

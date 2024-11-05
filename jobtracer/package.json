@@ -1,0 +1,42 @@
+{
+    "name": "jobtracer",
+    "version": "2.0.1",
+    "private": true,
+    "sapux": true,
+    "description": "Application Job Tracer - Variables",
+    "keywords": [
+        "ui5",
+        "openui5",
+        "sapui5"
+    ],
+    "main": "webapp/index.html",
+    "scripts": {
+        "start": "fiori run --open 'test/flpSandbox.html?sap-client=200#octavdemojobtracer-tile'",
+        "start-local": "fiori run --config ./ui5-local.yaml --open 'test/flpSandboxMockServer.html?sap-client=200#octavdemojobtracer-tile'",
+        "start-noflp": "fiori run --open 'index.html?sap-client=200'",
+        "build": "ui5 build -a --clean-dest --include-task=generateManifestBundle generateCachebusterInfo",
+        "deploy-old": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateManifestBundle generateCachebusterInfo && rimraf archive.zip",
+        "deploy": "npm run build && fiori deploy --config ui5-deploy.yaml",
+        "deploy-config": "fiori add deploy-config",
+        "int-tests": "fiori run fiori run --open 'test/integration/opaTests.qunit.html'",
+        "start-mock": "fiori run --open 'test/flpSandboxMockServer.html?sap-client=200#baifapimonitor-tile'"
+    },
+    "devDependencies": {
+        "@babel/eslint-parser": "7.14.7",
+        "@sap/eslint-plugin-ui5-jsdocs": "2.0.5",
+        "@sap/ux-specification": "^1.84.65",
+        "@sap/ux-ui5-tooling": "^1.9.7",
+        "@sapui5/ts-types": "1.92.2",
+        "@ui5/cli": "^3.5.0",
+        "@ui5/fs": "^2.0.6",
+        "@ui5/logger": "^2.0.1",
+        "eslint": "7.32.0",
+        "eslint-plugin-fiori-custom": "2.2.1",
+        "rimraf": "3.0.2"
+    },
+    "ui5": {
+        "dependencies": [
+            "@sap/ux-ui5-tooling"
+        ]
+    }
+}

@@ -1,0 +1,43 @@
+specVersion: "3.1"
+metadata:
+  name: octav.demo.jobtracer
+type: application
+framework:
+  name: SAPUI5
+  version: 1.104.0
+  libraries:
+    - name: sap.m
+    - name: sap.ui.core
+    - name: sap.fe.templates
+    - name: sap.ushell
+    - name: themelib_sap_bluecrystal
+    - name: themelib_sap_fiori_3
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertError: false
+        backend:
+          - path: /sap
+            url: https://my408401.s4hana.cloud.sap/
+    - name: sap-fe-mockserver
+      beforeMiddleware: fiori-tools-proxy
+      configuration:
+        service:
+          urlBasePath: /sap/opu/odata4/sap/zos_ui_v4_job_tracer/srvd/sap/zos_job_tracer/0001
+          name: ""
+          metadataXmlPath: ./webapp/localService/metadata.xml
+          mockdataRootPath: ./webapp/localService/mockdata
+          generateMockData: true
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        component: octav.demo.jobtracer
+        ui5Theme: sap_fiori_3
